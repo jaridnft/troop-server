@@ -1,15 +1,16 @@
-# Render Staging Smoke Test Checklist
+# Heroku Staging Smoke Test Checklist
 
 ## 1) Deploy and boot
 
-- Apply `render.yaml` in Render.
-- Confirm web service status is `Live`.
-- Confirm DB service is `Available`.
+- Create a Heroku app for staging.
+- Provision Heroku Postgres and ensure the add-on status is available.
+- Set app config vars: `NODE_ENV=production`, `LICENSE_MODE=mock`, `whiteList=[]`, `partnerId`, `partnerToken`.
+- Deploy the app and confirm dyno state is `up`.
 - In web logs, confirm there is no startup error from `initDb()`.
 
 ## 2) License endpoint (mock mode)
 
-- Ensure `LICENSE_MODE=mock` is set on the Render web service.
+- Ensure `LICENSE_MODE=mock` is set on the Heroku app.
 - Open:
   - `https://<staging-host>/?shop=store.myshopify.com&theme=origin`
   - `https://<staging-host>/?shop=store.myshopify.com&theme=unlicensed`
@@ -44,7 +45,7 @@ curl -i -X POST "https://<staging-host>/data" \
 
 ## 5) Log visibility
 
-- In Render web logs, confirm structured events appear:
+- In Heroku logs, confirm structured events appear:
   - `data_ingest_processed`
   - `data_ingest_rejected_invalid_payload` (if you send a bad body)
   - `data_ingest_rejected_input_error` (if validation fails)
@@ -53,7 +54,7 @@ curl -i -X POST "https://<staging-host>/data" \
 
 ## 6) DB row verification
 
-- In Render Postgres shell, verify rows were written:
+- In Heroku Postgres shell (`heroku pg:psql`), verify rows were written:
   - `SELECT COUNT(*) FROM merchants;`
   - `SELECT COUNT(*) FROM stores;`
   - `SELECT COUNT(*) FROM store_themes;`

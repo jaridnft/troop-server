@@ -1,0 +1,21 @@
+{
+  "name": "troop-licences-staging",
+  "description": "Staging deployment for troop licences service",
+  "env": {
+    "NODE_ENV": {
+      "value": "production"
+    },
+    "LICENSE_MODE": {
+      "value": "mock"
+    },
+    "whiteList": {
+      "value": "[]"
+    },
+    "partnerId": {
+      "required": true
+    },
+    "partnerToken": {
+      "required": true
+    }
+  }
+}
