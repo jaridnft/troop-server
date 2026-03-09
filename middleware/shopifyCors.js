@@ -8,7 +8,12 @@ function isAllowedShopifyOrigin(origin) {
 
   try {
     const { hostname } = new URL(origin);
-    return hostname === 'shopify.com' || hostname.endsWith('.shopify.com');
+    return (
+      hostname === 'shopify.com'
+      || hostname.endsWith('.shopify.com')
+      || hostname === 'myshopify.com'
+      || hostname.endsWith('.myshopify.com')
+    );
   } catch (error) {
     return false;
   }

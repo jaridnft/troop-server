@@ -92,6 +92,17 @@ describe('data route', () => {
     expect(response.headers['access-control-allow-headers']).toBe('Content-Type');
   });
 
+  test('OPTIONS /data accepts allowed MyShopify origin', async () => {
+    const response = await request(app)
+      .options('/data')
+      .set('Origin', 'https://troop-jarid-w-beta.myshopify.com');
+
+    expect(response.status).toBe(204);
+    expect(response.headers['access-control-allow-origin']).toBe('https://troop-jarid-w-beta.myshopify.com');
+    expect(response.headers['access-control-allow-methods']).toBe('POST, OPTIONS');
+    expect(response.headers['access-control-allow-headers']).toBe('Content-Type');
+  });
+
   test('POST /data rejects disallowed origins', async () => {
     const response = await request(app)
       .post('/data')
