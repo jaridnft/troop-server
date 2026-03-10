@@ -1,5 +1,5 @@
 const https = require('https');
-const { apiUrl, requestOptions, whiteList, licenseMode } = require('../config');
+const { apiUrl, requestOptions, whiteList } = require('../config');
 
 function getPostQuery(shopUrl) {
   return `{
@@ -91,28 +91,9 @@ function validateResponse(data, queryStringTheme, querystringShop) {
   return result;
 }
 
-function evaluateMockLicense(shop, theme) {
-  const normalizedShop = String(shop).trim().toLowerCase();
-  const normalizedTheme = String(theme).trim().toLowerCase();
-
-  // Simple deterministic behavior for staging test traffic.
-  const purchased = normalizedTheme !== 'unlicensed';
-
-  return {
-    shop: normalizedShop,
-    theme: normalizedTheme,
-    purchased,
-    source: 'mock',
-  };
-}
-
 async function evaluateLicense(shop, theme) {
   if (!shop || !theme) {
     throw new Error('Missing required query parameters: shop and theme');
-  }
-
-  if (licenseMode === 'mock') {
-    return evaluateMockLicense(shop, theme);
   }
 
   const data = await postToAPI(shop);

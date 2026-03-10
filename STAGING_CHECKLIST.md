@@ -4,19 +4,16 @@
 
 - Create a Heroku app for staging.
 - Provision Heroku Postgres and ensure the add-on status is available.
-- Set app config vars: `NODE_ENV=production`, `LICENSE_MODE=mock`, `whiteList=[]`, `partnerId`, `partnerToken`.
+- Set app config vars: `NODE_ENV=production`, `whiteList=[]`, `partnerId`, `partnerToken`.
 - Deploy the app and confirm dyno state is `up`.
 - In web logs, confirm there is no startup error from `initDb()`.
 
-## 2) License endpoint (mock mode)
+## 2) License endpoint
 
-- Ensure `LICENSE_MODE=mock` is set on the Heroku app.
 - Open:
   - `https://<staging-host>/?shop=store.myshopify.com&theme=origin`
-  - `https://<staging-host>/?shop=store.myshopify.com&theme=unlicensed`
 - Expected:
-  - First response has `"purchased": true`.
-  - Second response has `"purchased": false`.
+  - Response payload includes `shop`, `theme`, and `purchased`.
 
 ## 3) Analytics script load
 

@@ -5,9 +5,6 @@
     "NODE_ENV": {
       "value": "production"
     },
-    "LICENSE_MODE": {
-      "value": "mock"
-    },
     "whiteList": {
       "value": "[]"
     },

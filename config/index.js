@@ -1,7 +1,6 @@
 const apiUrl = `https://partners.shopify.com/${process.env.partnerId}/api/unstable/graphql.json`;
 const port = process.env.PORT || 8080;
 const whiteList = JSON.parse(process.env.whiteList || '[]');
-const licenseMode = (process.env.LICENSE_MODE || 'live').toLowerCase();
 
 const requestOptions = {
   method: 'POST',
@@ -16,5 +15,4 @@ module.exports = {
   port,
   requestOptions,
   whiteList,
-  licenseMode,
 };
